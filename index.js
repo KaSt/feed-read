@@ -126,8 +126,11 @@ FeedRead.atom = function(xml, source, callback) {
           , author:    author || default_author
           , link:      child_by_name(art, "link").attributes.href
           , enclosure: child_attr(art, "enclosure", "url")
+                    || child_attr(art, "media:content", "url")
           , enclosure_type: child_attr(art, "enclosure", "type")
+                         || child_attr(art, "media:content", "medium")
           , enclosure_size: child_attr(art, "enclosure", "length")
+          , enclosure_thumbnail: child_attr(art, "media:thumbnail", "url")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
@@ -185,8 +188,11 @@ FeedRead.rss = function(xml, source, callback) {
                     || child_data(art, "dc:creator")
           , link:      child_data(art, "link")
           , enclosure: child_attr(art, "enclosure", "url")
+                    || child_attr(art, "media:content", "url")
           , enclosure_type: child_attr(art, "enclosure", "type")
+                         || child_attr(art, "media:content", "medium")
           , enclosure_size: child_attr(art, "enclosure", "length")
+          , enclosure_thumbnail: child_attr(art, "media:thumbnail", "url")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
@@ -294,7 +300,7 @@ function child_by_name(parent, name) {
 // Internal: Get the first child of `parent` with `name`,
 // and return the text of its children.
 function child_data(parent, name) {
-  var node     = child_by_name(parent, name)
+  var node     = child_by_name(parent, name);
   if (!node) return "";
   var children = node.children;
   if (!children.length) return "";
@@ -302,7 +308,7 @@ function child_data(parent, name) {
 }
 
 function child_attr(parent, name, attr) {
-  var node     = child_by_name(parent, name)
+  var node     = child_by_name(parent, name);
   if (!node || !node.attributes) return "";
   return node.attributes[attr] || "";
 }
