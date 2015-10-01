@@ -125,7 +125,9 @@ FeedRead.atom = function(xml, source, callback) {
                     || child_data(art, "updated")
           , author:    author || default_author
           , link:      child_by_name(art, "link").attributes.href
-          , enclosure: child_data(art, "enclosure")
+          , enclosure: child_attr(art, "enclosure", "url")
+          , enclosure_type: child_attr(art, "enclosure", "type")
+          , enclosure_size: child_attr(art, "enclosure", "size")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
@@ -182,7 +184,9 @@ FeedRead.rss = function(xml, source, callback) {
           , author:    child_data(art, "author")
                     || child_data(art, "dc:creator")
           , link:      child_data(art, "link")
-          , enclosure: child_data(art, "enclosure")
+          , enclosure: child_attr(art, "enclosure", "url")
+          , enclosure_type: child_attr(art, "enclosure", "type")
+          , enclosure_size: child_attr(art, "enclosure", "size")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
@@ -295,4 +299,10 @@ function child_data(parent, name) {
   var children = node.children;
   if (!children.length) return "";
   return children.join("");
+}
+
+function child_attr(parent, name, attr) {
+  var node     = child_by_name(parent, name)
+  if (!node || !node.attributes) return "";
+  return node.attributes[attr] || "";
 }
