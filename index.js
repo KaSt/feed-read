@@ -127,7 +127,7 @@ FeedRead.atom = function(xml, source, callback) {
           , link:      child_by_name(art, "link").attributes.href
           , enclosure: child_attr(art, "enclosure", "url")
           , enclosure_type: child_attr(art, "enclosure", "type")
-          , enclosure_size: child_attr(art, "enclosure", "size")
+          , enclosure_size: child_attr(art, "enclosure", "length")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
@@ -186,7 +186,7 @@ FeedRead.rss = function(xml, source, callback) {
           , link:      child_data(art, "link")
           , enclosure: child_attr(art, "enclosure", "url")
           , enclosure_type: child_attr(art, "enclosure", "type")
-          , enclosure_size: child_attr(art, "enclosure", "size")
+          , enclosure_size: child_attr(art, "enclosure", "length")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
