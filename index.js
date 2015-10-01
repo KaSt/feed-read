@@ -125,6 +125,7 @@ FeedRead.atom = function(xml, source, callback) {
                     || child_data(art, "updated")
           , author:    author || default_author
           , link:      child_by_name(art, "link").attributes.href
+          , enclosure: child_data(art, "enclosure")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
@@ -181,6 +182,7 @@ FeedRead.rss = function(xml, source, callback) {
           , author:    child_data(art, "author")
                     || child_data(art, "dc:creator")
           , link:      child_data(art, "link")
+          , enclosure: child_data(art, "enclosure")
           , feed:      meta
           };
         if (obj.published) obj.published = new Date(obj.published);
