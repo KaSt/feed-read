@@ -129,6 +129,7 @@ FeedRead.atom = function(xml, source, callback) {
                     || child_attr(art, "media:content", "url")
           , enclosure_type: child_attr(art, "enclosure", "type")
                          || child_attr(art, "media:content", "medium")
+                         || child_attr(art, "media:content", "type")
           , enclosure_size: child_attr(art, "enclosure", "length")
           , enclosure_thumbnail: child_attr(art, "media:thumbnail", "url")
           , feed:      meta
@@ -191,6 +192,7 @@ FeedRead.rss = function(xml, source, callback) {
                     || child_attr(art, "media:content", "url")
           , enclosure_type: child_attr(art, "enclosure", "type")
                          || child_attr(art, "media:content", "medium")
+                         || child_attr(art, "media:content", "type")
           , enclosure_size: child_attr(art, "enclosure", "length")
           , enclosure_thumbnail: child_attr(art, "media:thumbnail", "url")
           , feed:      meta
