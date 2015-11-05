@@ -118,6 +118,8 @@ FeedRead.atom = function(xml, source, callback) {
         
         var obj = {
             title:     child_data(art, "title")
+          , publicId:  child_data(art, "guid")
+                    || child_data(art, "link")
           , content:   child_data(art, "description")
                     || child_data(art, "summary")
                     || child_data(art, "content")
@@ -181,6 +183,8 @@ FeedRead.rss = function(xml, source, callback) {
       function(art) {
         var obj = {
             title:     child_data(art, "title")
+          , publicId:  child_data(art, "guid")
+                    || child_data(art, "link")
           , content:   scrub_html(child_data(art, "description"))
                     || scrub_html(child_data(art, "summary"))
                     || scrub_html(child_data(art, "content:encoded"))
