@@ -14,6 +14,11 @@ var request    = require('request')
 //              * "content"
 //              * "published"
 //              * "feed" - {name, source, link}
+//              * category
+//              * magnet
+//              * seeds
+//              * peers
+//              * verified
 // 
 // Returns nothing.
 var FeedRead = module.exports = function(feed_url, callback) {
@@ -135,6 +140,11 @@ FeedRead.atom = function(xml, source, callback) {
           , enclosure_size: child_attr(art, "enclosure", "length")
           , enclosure_thumbnail: child_attr(art, "media:thumbnail", "url")
           , feed:      meta
+          , category: child_data(art, "category")
+          , magnet: child_data(art, "torrent:magnetURI")
+          , seeds: child_data(art, "torrent:seeds")
+          , peers: child_data(art, "torrent:peers")
+          , verified: child_data(art, "torrent:verified")
           };
         if (obj.published) obj.published = new Date(obj.published);
         return obj;
@@ -200,6 +210,12 @@ FeedRead.rss = function(xml, source, callback) {
           , enclosure_size: child_attr(art, "enclosure", "length")
           , enclosure_thumbnail: child_attr(art, "media:thumbnail", "url")
           , feed:      meta
+          , category: child_data(art, "category")
+          , magnet: child_data(art, "torrent:magnetURI")
+          , seeds: child_data(art, "torrent:seeds")
+          , peers: child_data(art, "torrent:peers")
+          , verified: child_data(art, "torrent:verified")
+          
           };
         if (obj.published) obj.published = new Date(obj.published);
         return obj;
